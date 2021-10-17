@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+  
+  <!-- head -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" 
+          content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      
+    <!-- title -->
+    <title>Sorting Visualizer</title>
+  
+    <!-- linking style.css -->
+    <link href="sorting.css" rel="stylesheet" />
+  </head>
+  
+  <!-- body -->
+  <body >
+   <section class="head">Sorting Visualizer<span class="myName">By Edward Jin</span></section>
+   <section class="data-container"></section> 
+      
+   <!-- "Generate New Array" button -->
+   <div class="allButtons">
+    <button class="btn1" onclick="generate()" id="Button1" >
+        Generate New Array
+    </button>   
+        
+    <!-- "Selection Sort" button -->
+    <button class="btn1" 
+        onclick="SelectionSort(), disable()" id="Button2" >
+        Selection Sort
+    </button>
+    <button class="btn1" 
+        onclick="InsertionSort(), disable()" id="Button3" >
+        Insertion Sort
+    </button>
+    <button class="btn1" 
+        onclick="HeapSort(), disable()" id="Button4" >
+        Heap Sort
+    </button>
+   </div>
+   <br>
+   <div class="info" id="info">
+       <h2>Welcome to my Sorting Visualizer!</h2>
+       <p class="info-paragraph">This is my implementation of a sorting visualizer inspired by GeeksforGeeks and Clément Mihailescu. I hope you enjoy!</p>
+   </div>
+   <br>
+   <div class="slidecontainer">
+     <input type="range" min="2" max="100" value="20" class="slider" id="myRange">
+   </div>
+  </body>
+  
+  <!-- linking index.js -->
+  <script src="sorting.js"></script>
+</html>
