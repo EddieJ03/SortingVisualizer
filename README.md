@@ -1,3 +1,4 @@
 # Sorting Visualizer
 
-![Screen Shot 2021-10-17 at 4 25 08 PM](https://user-images.githubusercontent.com/57547638/137648798-3878044a-d1cf-4b1f-8764-85f5445eb17b.png)
+
+![Screen Shot 2021-10-22 at 7 16 46 PM](https://user-images.githubusercontent.com/57547638/138538809-096b3d7c-5c5e-434c-bda1-ad2bddc51517.png)
