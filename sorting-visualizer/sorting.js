@@ -431,7 +431,7 @@ async function InsertionSort(delay = DELAY) {
 			// Provide red color to the jth bar
 			bars[j].style.backgroundColor = "red";
 
-			bars[val].style.backgroundColor = "red"
+			bars[val].style.backgroundColor = "red";
 				
 			// To pause the execution of code for 300 milliseconds
 			await new Promise((resolve) =>
@@ -484,25 +484,56 @@ async function InsertionSort(delay = DELAY) {
 	
 }
 
-function revertBack() {
-	document.getElementById("Button1").disabled = false;
-	document.getElementById("Button1").style.backgroundColor = "#210070";
-	document.getElementById("Button1").style.cursor = "pointer";
+// ShellSort
+// Utilizing 3x + 1 ShellSort implementation
+async function ShellSort(delay = DELAY) {
 
-	document.getElementById("Button2").disabled = false;
-	document.getElementById("Button2").style.backgroundColor = "#210070";
-	document.getElementById("Button2").style.cursor = "pointer";
-		
-	document.getElementById("Button3").disabled = false;
-	document.getElementById("Button3").style.backgroundColor = "#210070";
-	document.getElementById("Button3").style.cursor = "pointer";
+	let bars = document.querySelectorAll(".bar");
 
-	document.getElementById("Button4").disabled = false;
-	document.getElementById("Button4").style.backgroundColor = "#210070";
-	document.getElementById("Button4").style.cursor = "pointer";
+	let len = bars.length;
 
-	slider.disabled = false;
+	let h = 1;
+
+	while(h < Math.floor(len / 3)) h = 3*h + 1
+
+	while(h >= 1) {
+		for (let i = h; i < len; i++) {
+			for (let j = i; j >= h && parseInt(bars[j].style.height.split("px")[0]) < parseInt(bars[j - h].style.height.split("px")[0]); j-= h) {
+				bars[j].style.backgroundColor = "red";
+
+				bars[j - h].style.backgroundColor = "red";
+
+				await new Promise((resolve) =>
+					setTimeout(() => {
+					resolve();
+					}, delay)
+				);
+
+				var temp1 = bars[j].style.height;
+				bars[j].style.height = bars[j - h].style.height;
+				bars[j - h].style.height = temp1;
+
+				await new Promise((resolve) =>
+					setTimeout(() => {
+					resolve();
+					}, delay)
+				);
+
+				// Provide pink color to the jth bar
+				bars[j].style.backgroundColor = "rgb(255, 167, 129)";
+
+				// Provide pink color to the (j - h)th bar
+				bars[j - h].style.backgroundColor = "rgb(255, 167, 129)";
+			}
+		}
+		h = Math.floor(h / 3);
+	}
+
+	revertBack()
+
 }
+
+
 
 // function to generate new random array
 function generate(num = NUM_BARS)
@@ -563,7 +594,35 @@ function disable()
 	document.getElementById("Button4").style.backgroundColor = "#905bcc";
 	document.getElementById("Button4").style.cursor = "default"
 
+	document.getElementById("Button5").disabled = true;
+	document.getElementById("Button5").style.backgroundColor = "#905bcc";
+	document.getElementById("Button5").style.cursor = "default"
+
 	slider.disabled = true;
+}
+
+function revertBack() {
+	document.getElementById("Button1").disabled = false;
+	document.getElementById("Button1").style.backgroundColor = "#210070";
+	document.getElementById("Button1").style.cursor = "pointer";
+
+	document.getElementById("Button2").disabled = false;
+	document.getElementById("Button2").style.backgroundColor = "#210070";
+	document.getElementById("Button2").style.cursor = "pointer";
+		
+	document.getElementById("Button3").disabled = false;
+	document.getElementById("Button3").style.backgroundColor = "#210070";
+	document.getElementById("Button3").style.cursor = "pointer";
+
+	document.getElementById("Button4").disabled = false;
+	document.getElementById("Button4").style.backgroundColor = "#210070";
+	document.getElementById("Button4").style.cursor = "pointer";
+
+	document.getElementById("Button5").disabled = false;
+	document.getElementById("Button5").style.backgroundColor = "#210070";
+	document.getElementById("Button5").style.cursor = "pointer"
+
+	slider.disabled = false;
 }
 
 document.getElementById("Button1").addEventListener("mouseenter", () => {
@@ -596,4 +655,12 @@ document.getElementById("Button4").addEventListener("mouseenter", () => {
 
 document.getElementById("Button4").addEventListener("mouseleave", () => {
 	document.getElementById("Button4").style.backgroundColor = "#210070";
+})
+
+document.getElementById("Button5").addEventListener("mouseenter", () => {
+	document.getElementById("Button5").style.backgroundColor = "#905bcc";
+})
+
+document.getElementById("Button5").addEventListener("mouseleave", () => {
+	document.getElementById("Button5").style.backgroundColor = "#210070";
 })
