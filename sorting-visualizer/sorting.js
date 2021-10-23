@@ -17,32 +17,21 @@ const container = document.querySelector(".data-container");
 
 // function to generate bars
 function generatebars(num = NUM_BARS) {
-	
-	//for loop to generate 20 bars
 	for (let i = 0; i < num; i += 1) {
-
-		// To generate random values from 1 to 100
 		const value = Math.floor(Math.random() * 400) + 1;
 		
-		// To create element "div"
 		const bar = document.createElement("div");
 
-		// To add class "bar" to "div"
 		bar.classList.add("bar");
 
-		// Provide height to the bar
 		bar.style.height = `${value}px`;
 		
-		// To create element "label"
 		const barLabel = document.createElement("label");
 
-		// To add class "bar_id" to "label"
 		barLabel.classList.add("bar_id");
 		
-		// Append "Label" to "div"
 		bar.appendChild(barLabel);
 
-		// Append "div" to "data-container div"
 		container.appendChild(bar);
 	}
 }
@@ -530,9 +519,84 @@ async function ShellSort(delay = DELAY) {
 	}
 
 	revertBack()
-
 }
 
+async function QuickSort(delay = DELAY) {
+	let bars = document.querySelectorAll(".bar");
+
+	await sort(bars, 0, bars.length - 1, delay)
+
+	revertBack();
+}
+
+async function sort(bars, start, end, delay) {
+	if (end <= start) return;
+
+	let lt = start, gt = end;
+	
+	// Must Keep Height Constant!
+    let firstBarHeight = parseInt(bars[start].style.height.split("px")[0]);
+
+    let counter = start + 1;
+
+    while (counter <= gt) {
+
+		bars[lt].style.backgroundColor = "green";
+
+		await new Promise((resolve) =>
+			setTimeout(() => {
+			resolve();
+			}, delay)
+		);
+
+        if  (parseInt(bars[counter].style.height.split("px")[0]) < firstBarHeight) {
+
+			bars[counter].style.backgroundColor = "red";
+
+			await new Promise((resolve) =>
+				setTimeout(() => {
+				resolve();
+				}, delay)
+			);
+
+			var temp1 = bars[counter].style.height;
+			bars[counter].style.height = bars[lt].style.height;
+			bars[lt].style.height = temp1;
+
+			bars[counter].style.backgroundColor = "rgb(255, 167, 129)"
+			bars[lt].style.backgroundColor = "rgb(255, 167, 129)"
+
+			lt++;
+			counter++;
+		}
+
+        else if (parseInt(bars[counter].style.height.split("px")[0]) > firstBarHeight) {
+			bars[gt].style.backgroundColor = "red";
+
+			await new Promise((resolve) =>
+				setTimeout(() => {
+				resolve();
+				}, delay)
+			);
+
+			var temp1 = bars[gt].style.height;
+			bars[gt].style.height = bars[counter].style.height;
+			bars[counter].style.height = temp1;
+			bars[gt].style.backgroundColor = "rgb(255, 167, 129)";
+
+			gt--;
+		}
+
+        else {
+			counter++;
+		}
+    }
+
+	bars[lt].style.backgroundColor = "rgb(255, 167, 129)"
+
+    await sort(bars, start, lt - 1, delay);
+    await sort(bars, gt + 1, end, delay);
+}
 
 
 // function to generate new random array
@@ -546,29 +610,20 @@ function generate(num = NUM_BARS)
 
     //for loop to generate 20 bars
 	for (let i = 0; i < num; i += 1) {
-
-		// To generate random values from 1 to 100
 		const value = Math.floor(Math.random() * 400) + 1;
 		
-		// To create element "div"
 		const bar = document.createElement("div");
 
-		// To add class "bar" to "div"
 		bar.classList.add("bar");
 
-		// Provide height to the bar
 		bar.style.height = `${value}px`;
 		
-		// To create element "label"
 		const barLabel = document.createElement("label");
 
-		// To add class "bar_id" to "label"
 		barLabel.classList.add("bar_id");
 		
-		// Append "Label" to "div"
 		bar.appendChild(barLabel);
 
-		// Append "div" to "data-container div"
 		container.appendChild(bar);
 	}
 }
@@ -598,6 +653,10 @@ function disable()
 	document.getElementById("Button5").style.backgroundColor = "#905bcc";
 	document.getElementById("Button5").style.cursor = "default"
 
+	document.getElementById("Button6").disabled = true;
+	document.getElementById("Button6").style.backgroundColor = "#905bcc";
+	document.getElementById("Button6").style.cursor = "default"
+
 	slider.disabled = true;
 }
 
@@ -621,6 +680,10 @@ function revertBack() {
 	document.getElementById("Button5").disabled = false;
 	document.getElementById("Button5").style.backgroundColor = "#210070";
 	document.getElementById("Button5").style.cursor = "pointer"
+
+	document.getElementById("Button6").disabled = false;
+	document.getElementById("Button6").style.backgroundColor = "#210070";
+	document.getElementById("Button6").style.cursor = "pointer"
 
 	slider.disabled = false;
 }
@@ -663,4 +726,12 @@ document.getElementById("Button5").addEventListener("mouseenter", () => {
 
 document.getElementById("Button5").addEventListener("mouseleave", () => {
 	document.getElementById("Button5").style.backgroundColor = "#210070";
+})
+
+document.getElementById("Button6").addEventListener("mouseenter", () => {
+	document.getElementById("Button6").style.backgroundColor = "#905bcc";
+})
+
+document.getElementById("Button6").addEventListener("mouseleave", () => {
+	document.getElementById("Button6").style.backgroundColor = "#210070";
 })
