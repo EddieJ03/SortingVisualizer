@@ -572,6 +572,7 @@ async function sort(bars, start, end, delay) {
 
         else if (parseInt(bars[counter].style.height.split("px")[0]) > firstBarHeight) {
 			bars[gt].style.backgroundColor = "red";
+			bars[counter].style.backgroundColor = "red"
 
 			await new Promise((resolve) =>
 				setTimeout(() => {
@@ -582,7 +583,9 @@ async function sort(bars, start, end, delay) {
 			var temp1 = bars[gt].style.height;
 			bars[gt].style.height = bars[counter].style.height;
 			bars[counter].style.height = temp1;
+
 			bars[gt].style.backgroundColor = "rgb(255, 167, 129)";
+			bars[counter].style.backgroundColor = "rgb(255, 167, 129)";
 
 			gt--;
 		}
@@ -591,6 +594,14 @@ async function sort(bars, start, end, delay) {
 			counter++;
 		}
     }
+
+	bars[lt].style.backgroundColor = "darkblue"
+
+	await new Promise((resolve) =>
+		setTimeout(() => {
+		resolve();
+		}, delay)
+	);
 
 	bars[lt].style.backgroundColor = "rgb(255, 167, 129)"
 
