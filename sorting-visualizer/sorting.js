@@ -483,11 +483,13 @@ async function ShellSort(delay = DELAY) {
 
 	let h = 1;
 
-	while(h < Math.floor(len / 3)) h = 3*h + 1
+	while(h < Math.floor(len / 3)) {
+		h = 3 * h + 1
+	}
 
 	while(h >= 1) {
 		for (let i = h; i < len; i++) {
-			for (let j = i; j >= h && parseInt(bars[j].style.height.split("px")[0]) < parseInt(bars[j - h].style.height.split("px")[0]); j-= h) {
+			for (let j = i; j >= h; j-= h) {
 				bars[j].style.backgroundColor = "red";
 
 				bars[j - h].style.backgroundColor = "red";
@@ -498,21 +500,30 @@ async function ShellSort(delay = DELAY) {
 					}, delay)
 				);
 
-				var temp1 = bars[j].style.height;
-				bars[j].style.height = bars[j - h].style.height;
-				bars[j - h].style.height = temp1;
+				if (parseInt(bars[j].style.height.split("px")[0]) < parseInt(bars[j - h].style.height.split("px")[0])) {
+					var temp1 = bars[j].style.height;
+					bars[j].style.height = bars[j - h].style.height;
+					bars[j - h].style.height = temp1;
 
-				await new Promise((resolve) =>
-					setTimeout(() => {
-					resolve();
-					}, delay)
-				);
+					await new Promise((resolve) =>
+						setTimeout(() => {
+						resolve();
+						}, delay)
+					);
 
-				// Provide pink color to the jth bar
-				bars[j].style.backgroundColor = "rgb(255, 167, 129)";
+					// Provide pink color to the jth bar
+					bars[j].style.backgroundColor = "rgb(255, 167, 129)";
 
-				// Provide pink color to the (j - h)th bar
-				bars[j - h].style.backgroundColor = "rgb(255, 167, 129)";
+					// Provide pink color to the (j - h)th bar
+					bars[j - h].style.backgroundColor = "rgb(255, 167, 129)";
+				} else {
+					// Provide pink color to the jth bar
+					bars[j].style.backgroundColor = "rgb(255, 167, 129)";
+
+					// Provide pink color to the (j - h)th bar
+					bars[j - h].style.backgroundColor = "rgb(255, 167, 129)";
+					break;
+				}
 			}
 		}
 		h = Math.floor(h / 3);
