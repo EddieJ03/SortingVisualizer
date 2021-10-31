@@ -1,16 +1,22 @@
 let NUM_BARS = 20;
 let DELAY = 200;
 
-// finish code for slider here
-var slider = document.getElementById("myRange")
 
-// Update the current slider value (each time you drag the slider handle)
+var slider = document.getElementById("range")
+
 slider.addEventListener("input", changeIt) 
 
 function changeIt() {
 	NUM_BARS = this.value;
-	DELAY = Math.floor((200 / NUM_BARS)) * 20
 	generate()
+}
+
+var slider2 = document.getElementById("speed")
+
+slider2.addEventListener("input", changeSpeed) 
+
+function changeSpeed() {
+	DELAY = 525 - this.value
 }
 
 const container = document.querySelector(".data-container");
@@ -448,7 +454,7 @@ async function InsertionSort(delay = DELAY) {
 			var val2 = parseInt(bars[val].style.height.split("px")[0]);
 				
 			// Compare val1 & val2
-			if (val1 < val2) {
+			if (val1 <= val2) {
 				// Provide pink color to the jth bar
 				bars[j].style.backgroundColor = "rgb(255, 167, 129)";
 
@@ -787,6 +793,7 @@ function disable()
 	document.getElementById("Button7").style.cursor = "default"
 
 	slider.disabled = true;
+	slider2.disabled = true;
 }
 
 function revertBack() {
@@ -819,6 +826,7 @@ function revertBack() {
 	document.getElementById("Button7").style.cursor = "pointer"
 
 	slider.disabled = false;
+	slider2.disabled = false
 }
 
 document.getElementById("Button1").addEventListener("mouseenter", () => {
