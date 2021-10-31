@@ -47,16 +47,24 @@
         onclick="QuickSort(), disable()" id="Button6" >
         Quick Sort
     </button>
+    <button class="btn1" 
+        onclick="MergeSort(), disable()" id="Button7" >
+        Merge Sort
+    </button>
    </div>
    <br>
    <div class="info" id="info">
-       <h2>Welcome to my Sorting Visualizer!</h2>
+       <h2 id="info-h2">Welcome to my Sorting Visualizer!</h2>
        <p class="info-paragraph">This is my implementation of a sorting visualizer inspired by GeeksforGeeks and Clément Mihailescu. I hope you enjoy!</p>
    </div>
    <br>
    <div class="slidecontainer">
-     <input type="range" min="2" max="100" value="20" class="slider" id="myRange">
+     <input type="range" min="2" max="100" value="20" class="slider" id="range">
    </div>
+   <br />
+   <div class="slidecontainer">
+    <input type="range" min="50" max="500" value="200" class="slider2" id="speed">
+  </div>
   </body>
   
   <!-- linking index.js -->
