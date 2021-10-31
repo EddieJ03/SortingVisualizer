@@ -44,6 +44,9 @@ generatebars();
 
 async function HeapSort(delay = DELAY) {
 
+	document.getElementById('info-h2').textContent = "Heapsort"
+	document.querySelector(".info-paragraph").textContent = "My implementation of Heapsort involves first building a max heap then repeatedly taking the element at the front, swapping it with the element at the last available index, and sinking the newly swapped element at the front. Building the max heap takes O(n) time complexity and the time complexity of swapping and sinking is O(nlogn). Thus, the overall time complexity is O(nlogn + n) or O(nlogn)."
+
 	let bars = document.querySelectorAll(".bar")
 	
 	// Build Min Heap
@@ -337,6 +340,11 @@ async function HeapSort(delay = DELAY) {
 
 // asynchronous function to perform "Selection Sort"
 async function SelectionSort(delay = DELAY) {
+
+document.getElementById('info-h2').textContent = "Selection Sort"
+
+document.querySelector(".info-paragraph").textContent = "Selection Sort repeatedly looks for the smallest item less than the one it is currently one, swaps the smallest item with the item at its current index, and then moves on to the next index. This algorithm has O(n^2) time complexity in its best and worst case."
+
 let bars = document.querySelectorAll(".bar");
 
 // Assign 0 to min_idx
@@ -406,6 +414,10 @@ for (var i = 0; i < bars.length; i += 1) {
 
 // asynchronous function to perform "Insertion Sort"
 async function InsertionSort(delay = DELAY) {
+	document.querySelector(".info-paragraph").textContent = "Insertion sort involves repeatedly shifting the element that it is currently on to the left until it hits an element that is less than it. This algorithm runs in O(n^2) in the worst case, which is when the array is in reverse order, and O(n) in the best case, which is when the array is already sorted."
+
+	document.getElementById('info-h2').textContent = "Insertion Sort"
+
 	let bars = document.querySelectorAll(".bar");
 
 	for (var i = 1; i < bars.length; i++) {
@@ -476,6 +488,10 @@ async function InsertionSort(delay = DELAY) {
 // ShellSort
 // Utilizing 3x + 1 ShellSort implementation
 async function ShellSort(delay = DELAY) {
+	document.getElementById('info-h2').textContent = "Shell Sort"
+
+	document.querySelector(".info-paragraph").textContent = "Shellsort is a sorting algorithm that is similar to insertion sort except that it starts by sorting elements farthest apart from each other as determined by the gap and repeatedly reducing the gap until the gap is 1. My implementation is based of off the 3x + 1 implementation of Shellsort with a worst case time complexity of O(n^(3/2)). It finds the greatest possible value less than the length of the array divided by 3, uses this as the gap for a pass through, and then divides the gap by 3 and repeats."
+
 
 	let bars = document.querySelectorAll(".bar");
 
@@ -533,6 +549,10 @@ async function ShellSort(delay = DELAY) {
 }
 
 async function QuickSort(delay = DELAY) {
+	document.getElementById('info-h2').textContent = "Quicksort"
+
+	document.querySelector(".info-paragraph").textContent = "Quicksort is a divide-and-conquer sorting algorithm that selects a pivot element from the array, moves all elements less than it before it and all elements greater than it to the end and puts the pivot element in place. It then recurses on both sides of the pivot. My implementation just selects the first item as the pivot. Additionally, it uses the three-way partition idea. The worse case of Quicksort is O(n^2), which is when the array is already sorted, but the average case is O(nlogn)."
+
 	let bars = document.querySelectorAll(".bar");
 
 	await sort(bars, 0, bars.length - 1, delay)
@@ -620,6 +640,89 @@ async function sort(bars, start, end, delay) {
     await sort(bars, gt + 1, end, delay);
 }
 
+async function MergeSort(delay = DELAY) {
+	document.getElementById('info-h2').textContent = "Merge Sort"
+
+	document.querySelector(".info-paragraph").textContent = "Mergesort is a divide-and-conquer sorting algorithm that recursively breaks up the array into halves. When a break has two elements, it arranges the elements in order and returns back up the recusion tree to reorder consecutive halves and result in the whole array being sorted. It has a time complexity of O(nlogn) in the worst case which makes it optimal for sorting based on comparisons."
+
+	let bars = document.querySelectorAll(".bar");
+
+	await mergeSort(bars, 0, bars.length - 1, delay)
+
+	revertBack();
+}
+
+async function mergeSort(bars, start, end, delay) {
+    if (end > start) {
+		let mid = start + Math.floor((end - start) / 2);
+
+		await mergeSort(bars, start, mid, delay);
+
+		await new Promise((resolve) =>
+			setTimeout(() => {
+			resolve();
+			}, delay)
+		);
+
+		await mergeSort(bars, mid + 1, end, delay);
+
+		await new Promise((resolve) =>
+			setTimeout(() => {
+			resolve();
+			}, delay)
+		);
+
+		await merge(bars, start, mid, end, delay);
+
+	}
+}
+
+async function merge(bars, start, mid, end, delay) {
+		let aux = [];
+
+		for (let i = 0; i < bars.length; i++) {
+			if (i >= start && i <= end) {
+				bars[i].style.backgroundColor = "red";
+			}
+			let val = parseInt(bars[i].style.height.split("px")[0])
+			aux = [...aux, val]
+		}
+
+		console.log(start, mid, end, aux)
+
+		let i = start, j = mid + 1;
+
+		for (let k = start; k <= end; k++) {
+
+			await new Promise((resolve) =>
+				setTimeout(() => {
+				resolve();
+				}, delay)
+			);
+
+			if (i > mid) {
+				bars[k].style.backgroundColor = "rgb(255, 167, 129)";
+				bars[k].style.height = `${aux[j]}px`
+				j += 1
+			}
+			else if (j > end) {
+				bars[k].style.backgroundColor = "rgb(255, 167, 129)";
+				bars[k].style.height = `${aux[i]}px`
+				i += 1;
+			}
+			else if (aux[j] < aux[i]) {
+				bars[k].style.backgroundColor = "rgb(255, 167, 129)";
+				bars[k].style.height = `${aux[j]}px`
+				j += 1;
+			}
+			else {
+				bars[k].style.backgroundColor = "rgb(255, 167, 129)";
+				bars[k].style.height = `${aux[i]}px`
+				i += 1;
+			}
+		}
+}
+
 
 // function to generate new random array
 function generate(num = NUM_BARS)
@@ -679,6 +782,10 @@ function disable()
 	document.getElementById("Button6").style.backgroundColor = "#905bcc";
 	document.getElementById("Button6").style.cursor = "default"
 
+	document.getElementById("Button7").disabled = true;
+	document.getElementById("Button7").style.backgroundColor = "#905bcc";
+	document.getElementById("Button7").style.cursor = "default"
+
 	slider.disabled = true;
 }
 
@@ -706,6 +813,10 @@ function revertBack() {
 	document.getElementById("Button6").disabled = false;
 	document.getElementById("Button6").style.backgroundColor = "#210070";
 	document.getElementById("Button6").style.cursor = "pointer"
+
+	document.getElementById("Button7").disabled = false;
+	document.getElementById("Button7").style.backgroundColor = "#210070";
+	document.getElementById("Button7").style.cursor = "pointer"
 
 	slider.disabled = false;
 }
@@ -757,3 +868,14 @@ document.getElementById("Button6").addEventListener("mouseenter", () => {
 document.getElementById("Button6").addEventListener("mouseleave", () => {
 	document.getElementById("Button6").style.backgroundColor = "#210070";
 })
+
+
+document.getElementById("Button7").addEventListener("mouseenter", () => {
+	document.getElementById("Button7").style.backgroundColor = "#905bcc";
+})
+
+document.getElementById("Button7").addEventListener("mouseleave", () => {
+	document.getElementById("Button7").style.backgroundColor = "#210070";
+})
+
+
